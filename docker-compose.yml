@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # React application
+  sim-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Pass API endpoint as build argument
+        REACT_APP_API_ENDPOINT: ${REACT_APP_API_ENDPOINT:-http://localhost:8000}
+    container_name: sim-analyzer-app
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - sim-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+networks:
+  sim-network:
+    driver: bridge

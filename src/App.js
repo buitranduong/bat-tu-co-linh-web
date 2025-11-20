@@ -51,8 +51,9 @@ export default function App() {
       }
 
       // Call API using service
-      const data = await analyzePhoneNumbers(numbers);
-      setResults(data);
+      const response = await analyzePhoneNumbers(numbers);
+      // Extract the data array from the response
+      setResults(response.data || []);
     } catch (err) {
       if (err.message === 'CORS_ERROR') {
         setError('Không thể kết nối đến API. Lỗi CORS hoặc mạng. Kiểm tra: (1) API có cho phép CORS không? (2) URL API có đúng không? (3) Kết nối mạng?');

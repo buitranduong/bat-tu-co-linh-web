@@ -11,12 +11,12 @@ const API_BASE_URL = process.env.REACT_APP_API_ENDPOINT || 'http://localhost:800
  */
 export const analyzePhoneNumbers = async (phoneNumbers) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/analyze`, {
+    const response = await fetch(`${API_BASE_URL}/analyze-bulk`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ phone_numbers: phoneNumbers }),
+      body: JSON.stringify({ sim_numbers: phoneNumbers }),
     });
 
     if (!response.ok) {
